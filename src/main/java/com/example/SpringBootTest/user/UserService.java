@@ -14,10 +14,18 @@ import java.util.Set;
 @Validated
 public class UserService {
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepository; 
 
     @Autowired
     private Validator validator;
+
+    public UserModel findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public UserModel findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 
     public Integer addUser(UserModel user) {
         Set<ConstraintViolation<UserModel>> violations = validator.validate(user);
