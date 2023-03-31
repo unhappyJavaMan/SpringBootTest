@@ -2,6 +2,7 @@ package com.example.SpringBootTest.user;
 
 import com.example.SpringBootTest.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -14,10 +15,10 @@ import java.util.Set;
 @Validated
 public class UserService {
     @Autowired
-    private UserRepository userRepository; 
+    public UserRepository userRepository;
 
     @Autowired
-    private Validator validator;
+    public Validator validator;
 
     public UserModel findUserByEmail(String email) {
         return userRepository.findByEmail(email);

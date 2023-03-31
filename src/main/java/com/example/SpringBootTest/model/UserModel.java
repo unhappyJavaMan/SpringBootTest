@@ -1,5 +1,7 @@
 package com.example.SpringBootTest.model;
 
+import com.example.SpringBootTest.user.UniqueEmail;
+import com.example.SpringBootTest.user.UniqueUsername;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,11 +19,13 @@ public class UserModel {
 
     @Column(unique = true)
     @NotBlank(message = "帳號不可為空")
+@UniqueUsername
     private String username;
 
     @Column(unique = true)
     @Email(message = "信箱格式錯誤")
     @NotBlank(message = "信箱不可為空")
+@UniqueEmail
     private String email;
 
 
