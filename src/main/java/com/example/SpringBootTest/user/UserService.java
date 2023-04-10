@@ -2,6 +2,10 @@ package com.example.SpringBootTest.user;
 
 import com.example.SpringBootTest.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -20,6 +24,8 @@ public class UserService {
     @Autowired
     public Validator validator;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     public UserModel findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
@@ -37,7 +43,16 @@ public class UserService {
             }
             throw new ConstraintViolationException(sb.toString(), violations);
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         UserModel newUser = userRepository.save(user);
         return newUser.getId();
+    }
+    public boolean isLogin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return !(authentication == null || authentication instanceof AnonymousAuthenticationToken);
+    }
+
+    public String getUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

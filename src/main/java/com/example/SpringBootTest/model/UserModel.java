@@ -19,13 +19,13 @@ public class UserModel {
 
     @Column(unique = true)
     @NotBlank(message = "帳號不可為空")
-@UniqueUsername
+    @UniqueUsername
     private String username;
 
     @Column(unique = true)
     @Email(message = "信箱格式錯誤")
     @NotBlank(message = "信箱不可為空")
-@UniqueEmail
+    @UniqueEmail
     private String email;
 
 

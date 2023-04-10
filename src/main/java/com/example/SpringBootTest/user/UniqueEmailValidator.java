@@ -7,15 +7,15 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 @Component
-
 public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, String> {
     @Autowired
-    private UserService userService;
+    public UserRepository userRepository;
 
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {
-        System.out.println(userService);
-        return (userService.findUserByEmail(email) == null);
+        System.out.println(email);
+        System.out.println(userRepository);
+        return (userRepository.findByEmail(email) == null);
     }
 }

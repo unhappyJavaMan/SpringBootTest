@@ -9,12 +9,11 @@ import javax.validation.ConstraintValidatorContext;
 @Component
 public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, String> {
     @Autowired
-    private UserService userService;
+    public UserRepository userRepository;
 
     @Override
     public boolean isValid(String username, ConstraintValidatorContext context) {
-        System.out.println(userService);
         System.out.println(username);
-        return (userService.findUserByUsername(username) == null);
+        return (userRepository.findByUsername(username) == null);
     }
 }
